@@ -1,8 +1,22 @@
 <template>
   <div class="container">
-    <ul>
-      <li v-for="(list, index) in lists" :key="index">{{list.name}}</li>
-    </ul>
+    <el-row :gutter="24">
+      <el-col :span="8" v-for="o in lists" :key="o._id" style="margin: 20px 0">
+        <el-card :body-style="{ padding: '0px' }" style="border:1px solid #ddd;">
+          <img
+            src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+            class="image"
+          />
+          <div style="padding: 14px;">
+            <span>{{ o.name }}</span>
+            <div class="bottom clearfix">
+              <time class="time">{{ o._id }}</time>
+              <el-button type="text" class="button">删除</el-button>
+            </div>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -10,7 +24,8 @@
 export default {
   data() {
     return {
-      lists: []
+      lists: [],
+      currentDate: new Date()
     };
   },
   mounted() {
@@ -21,35 +36,39 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .container {
+  width: 1200px;
   margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+}
+.time {
+  font-size: 13px;
+  color: #999;
 }
 
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+.bottom {
+  margin-top: 13px;
+  line-height: 12px;
+}
+
+.button {
+  padding: 0;
+  float: right;
+}
+
+.image {
+  width: 100%;
+  height: 300px;
   display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
 }
 
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
 }
 
-.links {
-  padding-top: 15px;
+.clearfix:after {
+  clear: both;
 }
 </style>

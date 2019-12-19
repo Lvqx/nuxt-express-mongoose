@@ -48,7 +48,7 @@ async function start() {
         data: result
       })
     }).catch(error => {
-      console.log(error)
+      consola.error(error)
       res.send({
         code: 500,
         msg: '数据加载失败',
