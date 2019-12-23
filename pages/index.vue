@@ -32,6 +32,10 @@ export default {
     this.$axios.get("/home/list").then(({ data: res } = response) => {
       this.lists = res.data;
     });
+
+    this.$axios.get("/home/detail/5df41abe17b6ce0f48589d97").then(({ data: res } = response) => {
+      console.log(res);
+    });
   }
 };
 </script>
