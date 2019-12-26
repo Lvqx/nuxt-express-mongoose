@@ -9,7 +9,6 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 
-
 // connect
 mongoose.connect('mongodb://localhost:27017/node', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("连接成功"))
@@ -24,7 +23,7 @@ const studentSchema = new mongoose.Schema({
 // model
 const Student = mongoose.model('Students', studentSchema)
 
-Home.get('/home/list', (req, res) => {
+Home.get('/list', (req, res) => {
   Student.find().then(result => {
     res.send({
       code: 200,
@@ -41,7 +40,7 @@ Home.get('/home/list', (req, res) => {
   })
 })
 
-Home.get('/home/detail/:id', (req, res) => {
+Home.get('/detail/:id', (req, res) => {
   const { id } = req.params
   Student.findOne({ _id: id }).then(result => {
     res.send({
@@ -56,6 +55,19 @@ Home.get('/home/detail/:id', (req, res) => {
       msg: '数据加载失败',
       data: 'wrong'
     })
+  })
+})
+
+Home.delete('/delete/:id', (req, res) => {
+  const { id } = req.params
+  Student.findOneAndDelete({ _id: id }).then(result => {
+    res.send({
+      code: 200,
+      msg: '删除成功',
+      data: result
+    })
+  }).catch(error => {
+    consola.error(error)
   })
 })
 

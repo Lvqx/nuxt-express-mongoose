@@ -22,7 +22,7 @@ async function start() {
   }
 
   // router
-  app.use('/api/', require('../routes/api/home'))
+  app.use('/api/home/', require('../routes/api/home'))
 
   // Give nuxt middleware to expresss
   app.use(nuxt.render)

@@ -11,8 +11,11 @@
             <span>{{ o.name }}</span>
             <div class="bottom clearfix">
               <time class="time">{{ o._id }}</time>
-              <el-button type="text" class="button">删除</el-button>
+              <el-button type="text" class="button" @click="deletePic(o._id)">删除</el-button>
             </div>
+          </div>
+          <div>
+            <el-button @click="toDetail(o._id)">详情</el-button>
           </div>
         </el-card>
       </el-col>
@@ -29,13 +32,30 @@ export default {
     };
   },
   mounted() {
-    this.$axios.get("/home/list").then(({ data: res } = response) => {
-      this.lists = res.data;
-    });
-
-    this.$axios.get("/home/detail/5df41abe17b6ce0f48589d97").then(({ data: res } = response) => {
-      console.log(res);
-    });
+    this.initPage();
+  },
+  methods: {
+    initPage() {
+      this.$axios.get("/home/list").then(({ data: res } = response) => {
+        this.lists = res.data;
+      });
+    },
+    deletePic(id) {
+      this.$axios
+        .delete(`/home/delete/${id}`)
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      // .then(({ data: res } = response) => {
+      //   console.log(res)
+      // })
+    },
+    toDetail(id) {
+      this.$router.push({ name: "detail", query: { id: id } });
+    }
   }
 };
 </script>
